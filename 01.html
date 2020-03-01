@@ -1,0 +1,37 @@
+<!-- <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .container {
+            width: 600px;
+            height: 600px;
+            padding: 10px;
+            border: 10px solid red;
+            overflow: auto; 
+        }
+        .large_block {
+            width: 1000px;
+            height: 2000px;
+            background-color: lightblue;
+            padding: 20px;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="large_block"></div>
+    </div>
+    <script>
+console.log(document.querySelector(".container").scrollHeight);
+console.log(document.querySelector(".container").clientHeight);
+console.log(document.querySelector(".container").offsetHeight);
+2100 603 640
+offsetHeight: 也是container自己本身的可见高度 + 自身padding + 自身border + 滚动条
+与clientHeight不同的就是要加上自身border以及滚动条的高度，因此是603 + 20 + 17 = 640
+    </script>
+</body>
+</html> -->
