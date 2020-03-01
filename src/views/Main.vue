@@ -35,6 +35,7 @@
       <ul class="nav">
         <li @click="showNav(0)">
           <!-- 两种写法 -->
+          
           <!-- <router-link to="/goods" :class="curLab==0?'active':''">商品</router-link> -->
           <router-link to="/goods" :class="{active:curNav==0}">商品</router-link>
         </li>

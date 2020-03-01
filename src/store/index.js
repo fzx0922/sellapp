@@ -21,6 +21,7 @@ var store =new Vuex.Store({
             state.name=name
         }
     }
+    
 })
 // mutation函数必须手动触发！
 // 参数1.要触发的mutation的名字，参数2 要传入的参数
