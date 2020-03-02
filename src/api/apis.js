@@ -2,7 +2,7 @@ import axios from 'axios'
 
 let req=axios.create({
     // 设置默认地址
-    baseURL: 'http://192.168.1.102:3000', 
+    baseURL: 'http://localhost:3000', 
     // 设置超时限制，毫秒为单位
     timeout:10000
 })

@@ -10,6 +10,7 @@ Vue.use(ViewUI);
 
 new Vue({
   router,
+  store,
   render: h => h(App)
 }).$mount('#app')
 store

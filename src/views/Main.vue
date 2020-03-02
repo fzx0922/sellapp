@@ -1,66 +1,69 @@
 <template>
   <div id="main">
     <div class="maintop">
-    <header :style="{backgroundImage:'url('+data.avatar+')'}">
-      <div class="headertop">
-        <div>
-          <img :src="data.avatar" class="logo"/>
+      <header :style="{backgroundImage:'url('+data.avatar+')'}">
+        <div class="headertop">
+          <div>
+            <img :src="data.avatar" class="logo" />
+          </div>
+          <div class="login-msg">
+            <p>
+              <img src="../assets/images/brand@2x.png" alt />
+              <span>{{data.name}}</span>
+            </p>
+            <p>
+              <span>{{data.description}}/</span>
+              <span>{{data.deliveryTime}}分钟送达</span>
+            </p>
+            <p>
+              <img src="../assets/images/decrease_3@2x.png" alt />
+              <span>在线支付满28元减5，满50减10</span>
+            </p>
+          </div>
         </div>
-        <div class="login-msg">
+        <div class="headerbottom">
           <p>
-            <img src="../assets/images/brand@2x.png" alt />
-            <span>{{data.name}}</span>
+            <img src="../assets/images/bulletin@2x.png" alt />
+            <span>{{data.bulletin}}</span>
           </p>
-          <p>
-            <span>{{data.description}}/</span>
-            <span>{{data.deliveryTime}}分钟送达</span>
-          </p>
-          <p>
-            <img src="../assets/images/decrease_3@2x.png" alt />
-            <span>在线支付满28元减5，满50减10</span>
-          </p>
+          <div>
+            <span>></span>
+          </div>
         </div>
-      </div>
-      <div class="headerbottom">
-        <p>
-          <img src="../assets/images/bulletin@2x.png" alt />
-          <span>{{data.bulletin}}</span>
-        </p>
-        <div>
-          <span>></span>
-        </div>
-      </div>
-    </header>
-    <nav>
-      <ul class="nav">
-        <li @click="showNav(0)">
-          <!-- 两种写法 -->
-          
-          <!-- <router-link to="/goods" :class="curLab==0?'active':''">商品</router-link> -->
-          <router-link to="/goods" :class="{active:curNav==0}">商品</router-link>
-        </li>
-        <li @click="showNav(1)">
-          <!-- <router-link to="/evaluate" :class="curLab==1?'active':''">评价</router-link> -->
-          <router-link to="/evaluate" :class="{active:curNav==1}">评价</router-link>
-        </li>
-        <li @click="showNav(2)">
-          <router-link to="/business" :class="{active:curNav==2}">商家</router-link>
-        </li>
-      </ul>
-    </nav>
+      </header>
+      <nav>
+        <ul class="nav">
+          <li @click="showNav(0)">
+            <!-- 两种写法 -->
+            <!-- <router-link to="/goods" :class="curLab==0?'active':''">商品</router-link> -->
+            <router-link to="/goods" :class="{active:curNav==0}">商品</router-link>
+          </li>
+          <li @click="showNav(1)">
+            <!-- <router-link to="/evaluate" :class="curLab==1?'active':''">评价</router-link> -->
+            <router-link to="/evaluate" :class="{active:curNav==1}">评价</router-link>
+          </li>
+          <li @click="showNav(2)">
+            <router-link to="/business" :class="{active:curNav==2}">商家</router-link>
+          </li>
+        </ul>
+      </nav>
     </div>
     <div class="mainbottom">
-    <main>
-      <router-view />
-    </main>
+      <main>
+        <router-view />
+      </main>
     </div>
     <!-- 购物车 -->
+    <transition name="slide-fade">
+    <div class="shopPage" v-show="shopFlag"></div>
+    </transition>
     <footer id="shopCar">
-      <router-link to="/shopcar">
-        <span class="icon-car">
-          <Icon type="ios-cart-outline"></Icon>
-        </span>
-      </router-link>
+      <!-- <router-link to="/shopcar"> -->
+      <span class="icon-car">
+        <!-- **可以在@click里面直接书写JS代码 -->
+        <Icon type="ios-cart-outline" @click="shopFlag=!shopFlag"></Icon>
+      </span>
+      <!-- </router-link> -->
       <span>￥0</span>
       <span>|</span>
       <span>另需配送4元</span>
@@ -75,7 +78,8 @@ export default {
   data() {
     return {
       data: {},
-      curNav:''
+      curNav: "",
+      shopFlag:false
     };
   },
   created() {
@@ -83,27 +87,30 @@ export default {
       this.data = res.data.data;
     });
   },
-  methods:{
-    showNav(n){
-      this.curNav=n
-    }
+  methods: {
+    showNav(n) {
+      this.curNav = n;
+    },
+    // shopPage() {
+    //   this.shopFlag=!this.shopFlag
+    // }
   }
 };
 </script>
 <style lang="less" scoped>
-#main{
+#main {
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
 }
-#main .maintop{
+#main .maintop {
   width: 100%;
   height: 250px;
 }
-#main .mainbottom{
- flex: 1;
- height: 100%;
+#main .mainbottom {
+  flex: 1;
+  height: 100%;
 }
 #main header {
   position: relative;
@@ -154,7 +161,7 @@ export default {
 .headerbottom {
   width: 100%;
   padding: 10px 20px;
-  background: #3E3F43;
+  background: #3e3f43;
   opacity: 0.6;
   display: flex;
   color: #fff;
@@ -182,9 +189,16 @@ ul li {
   display: flex;
   justify-content: space-around;
   border-bottom: 2px solid #e5e5e7;
-  a{
+  a {
     color: #9ea1a5;
   }
+}
+.shopPage{
+  width: 100%;
+  height: 150px;
+  background: orange;
+  position: fixed;
+  bottom: 50px;
 }
 #shopCar {
   width: 100%;
@@ -217,7 +231,20 @@ ul li {
     text-align: center;
   }
 }
-.active{
+.active {
   color: red !important;
 }
+// 购物车的动画
+.slide-fade-enter-active {
+  transition: all .5s ease;
+}
+.slide-fade-leave-active {
+  transition: all .6s ease;
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active for below version 2.1.8 */ {
+  transform: translateY(20px);
+  opacity: 0;
+}
+
 </style>
